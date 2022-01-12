@@ -13,6 +13,14 @@ const tweetNotFoundError = (tweetId) => {
   return error;
 }
 
+const validateTweet = [
+    check('message')
+        .exists({ checkFalsy: true })
+        .withMessage('Please provide a value for message')
+        .isLength({ max: 280 })
+        .withMessage('Message must not be more than 280 characters long')
+]
+
 const handleValidationErrors = (req, res, next) => {
     const validationErrors = validationResult(req);
     // TODO: Generate error object and invoke next middleware function
@@ -45,10 +53,11 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res, next) => {
   }
 }));
 
-router.post('/',handleValidationErrors, asyncHandler(async (req, res, next) => {
+router.post('/', validateTweet, handleValidationErrors, asyncHandler(async (req, res, next) => {
     const { message } = req.body;
     const tweet = await Tweet.create({ message });
-    
+
+    res.status(201).json({ tweet })
 }));
 
 
