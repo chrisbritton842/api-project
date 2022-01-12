@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 app.use('/', indexRouter);
-app.use('/', tweetsRouter);
+app.use('/tweets', tweetsRouter);
 
 
 

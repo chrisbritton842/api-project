@@ -25,7 +25,7 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res, next) => {
     res.json({ tweet })
   }
   else {
-    next(tweetNotFoundError)
+    next(tweetNotFoundError(tweetId))
   }
 }));
 
