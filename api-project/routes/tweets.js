@@ -75,5 +75,21 @@ router.put('/:id(\\d+)', handleValidationErrors, asyncHandler(async (req, res, n
 
 }))
 
+router.delete('/:id(\\d+)', handleValidationErrors, asyncHandler(async (req, res, next) => {
+    const { message } = req.body;
+    const tweetId = parseInt(req.params.id);
+    const tweet = await Tweet.findByPk(tweetId);
+
+    if (tweet) {
+      await tweet.destroy();
+      res.status(204).end()
+    }
+    else {
+      next(tweetNotFoundError(tweetId))
+    }
+
+  }))
+
+
 
 module.exports = router;
