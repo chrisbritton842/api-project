@@ -60,5 +60,20 @@ router.post('/', validateTweet, handleValidationErrors, asyncHandler(async (req,
     res.status(201).json({ tweet })
 }));
 
+router.put('/:id(\\d+)', handleValidationErrors, asyncHandler(async (req, res, next) => {
+  const { message } = req.body;
+  const tweetId = parseInt(req.params.id);
+  const tweet = await Tweet.findByPk(tweetId);
+
+  if (tweet) {
+    await tweet.update({ message });
+    res.json({ tweet })
+  }
+  else {
+    next(tweetNotFoundError(tweetId))
+  }
+
+}))
+
 
 module.exports = router;
