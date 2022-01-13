@@ -12,7 +12,7 @@ app.use(morgan("dev"));
 
 app.use('/', indexRouter);
 app.use('/tweets', tweetsRouter);
-app.use('/users', usersRouter)
+app.use('/users', usersRouter);
 
 
 
