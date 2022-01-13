@@ -3,6 +3,8 @@ const router = express.Router();
 const db = require('../db/models');
 const { Tweet } = db;
 const { check, validationResult } = require('express-validator')
+const { requireAuth } = require("../auth");
+
 
 const asyncHandler = handler => (req, res, next) => handler(req, res, next).catch(next);
 
@@ -91,5 +93,6 @@ router.delete('/:id(\\d+)', handleValidationErrors, asyncHandler(async (req, res
   }))
 
 
+  router.use(requireAuth);
 
 module.exports = router;
