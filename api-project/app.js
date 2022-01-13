@@ -3,7 +3,8 @@ const morgan = require("morgan");
 const { environment } = require('./config');
 const app = express();
 const indexRouter = require('./routes/index');
-const tweetsRouter = require('./routes/tweets')
+const tweetsRouter = require('./routes/tweets');
+const usersRouter = require('./routes/users');
 
 app.use(express.json());
 
@@ -11,6 +12,7 @@ app.use(morgan("dev"));
 
 app.use('/', indexRouter);
 app.use('/tweets', tweetsRouter);
+app.use('/users', usersRouter)
 
 
 
